@@ -40,14 +40,15 @@ namespace ProtestNearMe
 
             services.AddScoped(typeof(IAsyncRepository<>), typeof(EfRepository<>));
 
+         
+            // Add service and create Policy with options
             services.AddCors(options =>
             {
-                options.AddDefaultPolicy(
-                                  builder =>
-                                  {
-                                      builder.WithOrigins("http://localhost:8080",
-                                                          "http://192.168.0.183");
-                                  });
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
             });
 
             services.AddControllers();
@@ -77,7 +78,7 @@ namespace ProtestNearMe
 
             app.UseRouting();
 
-            app.UseCors();
+            app.UseCors("CorsPolicy");
 
             app.UseAuthorization();
 
