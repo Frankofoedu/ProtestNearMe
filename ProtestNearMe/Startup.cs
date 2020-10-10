@@ -15,6 +15,8 @@ using Microsoft.Extensions.Logging;
 using BaseProject.Web.Interfaces;
 using BaseProject.Web.Repository;
 using BaseProject.Web.Config;
+using ProtestNearMe.Interfaces;
+using ProtestNearMe.Services;
 
 namespace ProtestNearMe
 {
@@ -49,6 +51,8 @@ namespace ProtestNearMe
                     .AllowAnyMethod()
                     .AllowAnyHeader());
             });
+
+            services.AddScoped<ILocationService, LocationService>();
 
             services.AddControllers();
             services.AddSwaggerGen();
