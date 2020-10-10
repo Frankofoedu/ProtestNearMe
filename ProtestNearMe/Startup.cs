@@ -46,7 +46,7 @@ namespace ProtestNearMe
                 options.AddPolicy(name: MyAllowSpecificOrigins,
                                   builder =>
                                   {
-                                      builder.WithOrigins("http://localhost",
+                                      builder.WithOrigins("http://localhost:8080",
                                                           "http://192.168.0.183");
                                   });
             });
