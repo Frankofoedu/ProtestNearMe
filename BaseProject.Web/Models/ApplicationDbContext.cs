@@ -19,5 +19,7 @@ namespace BaseProject.Web.Models
         {
         }
 
+        public DbSet<Location> Locations { get; set; }
+
     }
 }
