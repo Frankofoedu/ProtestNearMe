@@ -20,6 +20,7 @@ namespace ProtestNearMe
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -40,6 +41,15 @@ namespace ProtestNearMe
 
             services.AddScoped(typeof(IAsyncRepository<>), typeof(EfRepository<>));
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                                  builder =>
+                                  {
+                                      builder.WithOrigins("http://localhost",
+                                                          "http://192.168.0.183");
+                                  });
+            });
 
             services.AddControllers();
             services.AddSwaggerGen();
@@ -56,6 +66,7 @@ namespace ProtestNearMe
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
 
+
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
@@ -66,6 +77,8 @@ namespace ProtestNearMe
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseAuthorization();
 
