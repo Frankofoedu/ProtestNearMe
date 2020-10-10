@@ -20,7 +20,6 @@ namespace ProtestNearMe
 {
     public class Startup
     {
-        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -43,7 +42,7 @@ namespace ProtestNearMe
 
             services.AddCors(options =>
             {
-                options.AddPolicy(name: MyAllowSpecificOrigins,
+                options.AddDefaultPolicy(
                                   builder =>
                                   {
                                       builder.WithOrigins("http://localhost:8080",
@@ -78,7 +77,7 @@ namespace ProtestNearMe
 
             app.UseRouting();
 
-            app.UseCors(MyAllowSpecificOrigins);
+            app.UseCors();
 
             app.UseAuthorization();
 
