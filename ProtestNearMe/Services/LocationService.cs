@@ -55,8 +55,10 @@ namespace ProtestNearMe.Services
             var specification = new GetLocationByAddressSpecification(Address);
             var locations = await _locationRepo.ListAsyncSelect(specification);
 
-            var result = new ResultModel<List<LocationVM>> ();
-            result.Data = locations.ToList();
+            var result = new ResultModel<List<LocationVM>>
+            {
+                Data = locations.ToList()
+            };
 
             return result;
         }
